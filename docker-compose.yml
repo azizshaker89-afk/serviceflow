@@ -1,0 +1,25 @@
+# Local MySQL for ServiceFlow (the app itself runs with `php artisan serve` + `npm run dev`).
+#   docker compose up -d
+# Creates `serviceflow` (app) and `serviceflow_test` (concurrency test) on port 3307,
+# so it never clashes with a MySQL already installed on 3306.
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: serviceflow-mysql
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: serviceflow
+      MYSQL_USER: serviceflow
+      MYSQL_PASSWORD: secret
+    volumes:
+      - serviceflow-mysql:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      retries: 20
+
+volumes:
+  serviceflow-mysql:

@@ -1,0 +1,5 @@
+# Each app keeps its own .gitignore (backend/.gitignore, frontend/.gitignore).
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

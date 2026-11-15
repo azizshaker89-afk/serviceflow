@@ -1,0 +1,12 @@
+# One-click deploy on Render's free plan: New → Blueprint → pick this repository.
+services:
+  - type: web
+    name: serviceflow
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /up
+    autoDeploy: true
+    envVars:
+      - key: APP_NAME
+        value: ServiceFlow
