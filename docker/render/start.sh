@@ -5,7 +5,8 @@
 set -euo pipefail
 cd /app
 
-HOST="${RENDER_EXTERNAL_HOSTNAME:-localhost}"
+# Render sets RENDER_EXTERNAL_HOSTNAME, Hugging Face Spaces sets SPACE_HOST.
+HOST="${RENDER_EXTERNAL_HOSTNAME:-${SPACE_HOST:-localhost}}"
 export APP_URL="${APP_URL:-https://${HOST}}"
 export SANCTUM_STATEFUL_DOMAINS="${SANCTUM_STATEFUL_DOMAINS:-${HOST}}"
 export APP_KEY="${APP_KEY:-$(php artisan key:generate --show --no-ansi)}"

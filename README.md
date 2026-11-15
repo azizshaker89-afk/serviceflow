@@ -60,17 +60,21 @@ origin (no CORS, Sanctum cookies just work). In production nginx does the same j
 > `DB_CONNECTION=sqlite` for a quick look. SQLite works for everything except the
 > concurrency test, because it locks the whole file instead of a row.
 
-### Deploy the live demo (free)
+### Deploy the live demo (free, no credit card)
 
-The repository deploys to [Render](https://render.com)'s free plan as one Docker container:
-the Vue build is served by Laravel from the same origin as the API.
+The same `Dockerfile` runs SPA and API as one container from one origin, on either host:
 
-1. Render → **New → Blueprint** → select this repository (`render.yaml` does the rest).
-2. Wait for the first build; the site is at `https://<service-name>.onrender.com`.
+**Hugging Face Spaces** (no card): create a *Docker* Space, then push the `hf` branch of this
+repository to it (`git push <space-remote> hf:main`). That branch only adds the Space metadata
+header to the README (`sdk: docker`, `app_port: 8080`). The app is at
+`https://<user>-<space>.hf.space`; open that address directly, since logging in inside the
+embedded preview on huggingface.co is blocked by third-party cookie rules.
+
+**Render**: New → Blueprint → select this repository; `render.yaml` does the rest.
 
 The free disk is ephemeral, so `docker/render/start.sh` builds a fresh SQLite database and replays
-the demo history on every start: visitors always get clean data. A free instance sleeps after
-15 minutes idle; the first visit after that takes about a minute while it wakes and re-seeds.
+the demo history on every start: visitors always get clean data. The first visit after the host
+puts the app to sleep takes about a minute while it wakes and re-seeds.
 
 ## Demo accounts
 

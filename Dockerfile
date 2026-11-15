@@ -1,5 +1,6 @@
 # ServiceFlow demo image: Vue SPA + Laravel API in one container, served from one origin.
-# Used by Render (render.yaml); works on any Docker host that sets $PORT.
+# Used by Render (render.yaml) and Hugging Face Spaces; works on any Docker host.
+# Runs as an unprivileged user with UID 1000 (required by Hugging Face, good practice anywhere).
 
 # ---- 1. Build the Vue SPA ----
 FROM node:20-alpine AS spa
@@ -29,7 +30,11 @@ COPY --from=spa /spa/dist/ ./public/
 RUN mv public/index.html public/spa.html
 
 COPY docker/render/start.sh /usr/local/bin/start
-RUN chmod +x /usr/local/bin/start
+RUN chmod +x /usr/local/bin/start \
+    && adduser -D -u 1000 app \
+    && chown -R app:app /app
+
+USER app
 
 ENV APP_ENV=production \
     APP_DEBUG=false \
