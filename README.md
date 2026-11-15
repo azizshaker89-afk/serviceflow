@@ -1,3 +1,14 @@
+---
+title: ServiceFlow
+emoji: 🔧
+colorFrom: gray
+colorTo: yellow
+sdk: docker
+app_port: 8080
+pinned: false
+short_description: Maintenance service management demo (Laravel + Vue, Arabic)
+---
+
 # ServiceFlow
 
 Maintenance-service management for a home-repair company: customers request a technician online
