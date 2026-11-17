@@ -7,6 +7,8 @@ hours and spare parts, and accountants invoice and collect.
 **Stack:** Laravel 13 (PHP 8.3) REST API · Vue 3 + Pinia + Vue Router · Bootstrap 5 RTL ·
 MySQL 8.4 · Sanctum SPA auth · spatie/laravel-permission · spatie/laravel-activitylog · Chart.js
 
+**Live demo:** https://serviceflow-eight-nu.vercel.app (demo accounts are listed on the login page)
+
 The interesting part is not the screens but the rules behind them: a strict state machine,
 row-locked inventory, money that never touches a float, and permissions enforced by the API,
 not by hidden buttons.

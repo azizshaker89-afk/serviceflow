@@ -13,3 +13,5 @@ design
 docker-compose.yml
 .git
 backend/.claude
+.env.local
+.vercel
