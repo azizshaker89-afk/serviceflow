@@ -1,0 +1,15 @@
+**/node_modules
+**/vendor
+**/.env
+**/*.sqlite
+backend/storage/logs/*
+backend/storage/framework/cache/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*
+backend/public/spa.html
+backend/public/assets
+frontend/dist
+design
+docker-compose.yml
+.git
+backend/.claude

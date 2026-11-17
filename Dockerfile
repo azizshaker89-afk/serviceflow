@@ -1,5 +1,5 @@
 # ServiceFlow demo image: Vue SPA + Laravel API in one container, served from one origin.
-# Used by Render (render.yaml) and Hugging Face Spaces; works on any Docker host.
+# Used by Vercel (Container preset), Render (render.yaml) and Hugging Face Spaces; works on any Docker host.
 # Runs as an unprivileged user with UID 1000 (required by Hugging Face, good practice anywhere).
 
 # ---- 1. Build the Vue SPA ----
@@ -47,6 +47,11 @@ ENV APP_ENV=production \
     CACHE_STORE=database \
     QUEUE_CONNECTION=sync \
     PHP_CLI_SERVER_WORKERS=4
+
+# Seed once at build time so a cold start only copies this file (start.sh reseeds if it is stale).
+RUN touch database/snapshot.sqlite \
+    && APP_KEY=base64:$(head -c 32 /dev/urandom | base64) DB_DATABASE=/app/database/snapshot.sqlite \
+       php artisan migrate --force --seed --no-interaction
 
 EXPOSE 8080
 CMD ["start"]
