@@ -72,6 +72,13 @@ embedded preview on huggingface.co is blocked by third-party cookie rules.
 
 **Render**: New → Blueprint → select this repository; `render.yaml` does the rest.
 
+**Vercel** (Services, beta): import the repository; `vercel.json` defines two services in one
+project, the Vite SPA (`frontend/`, static) and the API (`backend/Dockerfile`, container runtime).
+`/api/*`, `/sanctum/*` and `/up` go to the API, everything else to the SPA, so it is still one
+origin. Set one environment variable, `APP_KEY` (`php artisan key:generate --show`): Vercel can
+run several API instances, and they must share the key that encrypts the cookie session. Each
+instance has its own demo database, so data a visitor adds is not shared between instances.
+
 The free disk is ephemeral, so `docker/render/start.sh` builds a fresh SQLite database and replays
 the demo history on every start: visitors always get clean data. The first visit after the host
 puts the app to sleep takes about a minute while it wakes and re-seeds.

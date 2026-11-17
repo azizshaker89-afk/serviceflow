@@ -1,0 +1,16 @@
+node_modules
+vendor
+.env
+.env.*
+!.env.example
+**/*.sqlite
+storage/logs/*
+storage/framework/cache/data/*
+storage/framework/sessions/*
+storage/framework/views/*
+bootstrap/cache/*.php
+public/spa.html
+public/assets
+public/hot
+.claude
+.phpunit.cache
